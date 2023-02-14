@@ -4,7 +4,7 @@
             text-color="#fff" active-text-color="#ffd04b" @select="handleSelect" :router=true>
             <el-menu-item index="/">智能医学文献系统</el-menu-item>
             <el-menu-item index="/my-info">我的</el-menu-item>
-            <el-menu-item index="/update-pdf">立即上传</el-menu-item>
+            <!-- <el-menu-item index="/update-pdf">立即上传</el-menu-item> -->
         </el-menu>
     </div>
 </template>
@@ -12,7 +12,7 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
 
-const activeIndex = ref('1')
+// const activeIndex = ref('1')
 const activeIndex2 = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)

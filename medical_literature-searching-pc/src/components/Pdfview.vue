@@ -1,8 +1,11 @@
 <template>
+    <!-- <canvas ref="canvas" width="1519.2" height="2025" ></canvas> -->
     <div class="pdf-preview">
+        <canvas ref="canvas" width="1519.2" height="2025" ></canvas>
         <div class="pdf-wrap">
-            <vue-pdf-embed  :source="state.source" :style="scaleFun" :page="state.pageNum" />
+            <vue-pdf-embed  :source="state.source" class="vue-pdf-embed" :style="scaleFun" :page="state.pageNum" />
         </div>
+        
     </div>
     <div class="page-tool">
         <div class="page-tool-item" @click="lastPage">上一页</div>
@@ -16,9 +19,12 @@
 
 <script setup lang='ts'>
 
-import { reactive, onMounted, computed } from "vue";
+import { reactive, onMounted, computed, ref } from 'vue';
 import VuePdfEmbed from "vue-pdf-embed";
 import { createLoadingTask } from "vue3-pdfjs";
+
+/** @type {HTMLCanvasElement} */ 
+const canvas = ref() 
 
 const props = defineProps({
     pdfUrl: {
@@ -57,6 +63,16 @@ function pageZoomIn() {
 }
 
 onMounted(() => {
+    //canvas
+    const ctx = canvas.value.getContext('2d');
+    ctx.fillStyle = 'rgba(231,246,19,0.3)'
+    // ctx.fillRect(100,711,1400,600)
+    // ctx.fillRect(100,711,100,100)
+    // ctx.translate(100, 711)
+    // ctx.fillRect(0,0,100,600)
+    ctx.fillRect(103, 509, 1321, 48);
+
+    //pdf
     const loadingTask = createLoadingTask(state.source);
     loadingTask.promise.then((pdf: { numPages: number }) => {
         state.numPages = pdf.numPages;
@@ -65,6 +81,12 @@ onMounted(() => {
 </script>
 
 <style lang='less' scoped>
+
+canvas {
+    position:absolute;
+  
+    z-index: 998;
+}
 .pdf-preview {
     position: relative;
     height: 100vh;
@@ -74,13 +96,12 @@ onMounted(() => {
 
 .pdf-wrap {
     overflow-y: scroll;
-    // height: 900px;
     height: 100%;
 }
 
-vue-pdf-embed {
+.vue-pdf-embed {
     text-align: center;
-    width: 75%;
+    width: 100%;
     border: 1px solid #e5e5e5;
     margin: 0 auto;
     box-sizing: border-box;
@@ -97,7 +118,7 @@ vue-pdf-embed {
     background: rgb(66, 66, 66);
     color: white;
     border-radius: 19px;
-    z-index: 100;
+    z-index: 999;
     cursor: pointer;
     margin-left: 50%;
     transform: translateX(-50%);

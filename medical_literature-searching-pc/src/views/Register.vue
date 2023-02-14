@@ -23,6 +23,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
+import router from '@/router';
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -70,6 +71,7 @@ const rules = reactive({
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
+    router.push('/login')
     if (!formEl) return
     formEl.validate((valid) => {
         if (valid) {

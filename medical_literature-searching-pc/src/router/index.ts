@@ -23,11 +23,11 @@ const router = createRouter({
       name: 'search-view',
       component: () => import('../views/SearchView.vue')
     },
-    {
-      path: '/update-pdf',
-      name: 'update-pdf',
-      component: () => import('../views/UploadPdf.vue')
-    },
+    // {
+    //   path: '/update-pdf',
+    //   name: 'update-pdf',
+    //   component: () => import('../views/UploadPdf.vue')
+    // },
     {
       path: '/my-info',
       name: 'my-info',
